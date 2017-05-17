@@ -1,0 +1,61 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Help invitation system + File Manager + MySQL Admin]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/common/header.tpl">
+		<operation>
+			<search position="before"><![CDATA[<?php echo $error_log; ?>]]></search>
+			<add><![CDATA[<li><a target="_blank" href="<?php echo substr($this->url->link('common/home', '', 'SSL'),0,-27).'ext/'; ?>"><?php if (!isset($file_manager)) $file_manager='File Manager'; echo $file_manager; ?></a></li>
+			<li><a target="_blank" href="<?php echo substr($this->url->link('common/home', '', 'SSL'),0,-27).'sqlbuddy/'; ?>"><?php if (!isset($mysql_admin)) $mysql_admin='MySQL Admin'; echo $mysql_admin; ?></a></li>]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<?php echo $logged; ?>]]></search>
+			<add><![CDATA[<?php echo $logged; ?> &nbsp;&nbsp;<a class="button" href="<?php echo $this->url->link('tool/helpme', 'token=' . $this->session->data['token'], 'SSL'); ?>"><b><?php echo $request_help; ?></b></a>]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/controller/common/login.php">
+		<operation>
+			<search position="after"><![CDATA[public function index() {]]></search>
+			<add><![CDATA[
+			
+			//MXS
+        if (isset($this->request->get['hmail'])) {
+           // Invitation Autologin
+           $q = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'helpme_email'")->row;
+           if ($q) {
+               $mail=$q['value'];
+               $q = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'helpme_key'")->row;
+               $key=$q['value'];
+               //echo "Mail: ".$mail." Hmail: ".$this->request->get['hmail'];
+               if ( ($mail==$this->request->get['hmail']) and ($key==$this->request->get['hkey']) ) {
+                 // Login it!
+                 $this->user->login('','',true);
+                 $this->session->data['token'] = md5(mt_rand());
+                 $this->redirect($this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'));
+               }
+           }
+           echo "Login failed. Maybe your invitation is cancelled already.";
+           exit;
+        }
+        //MXE
+			]]></add>
+		</operation>
+	</file>
+
+	<file name="system/library/user.php">
+		<operation>
+			<search position="replace"><![CDATA[public function login($username, $password) {]]></search>
+			<add><![CDATA[public function login($username, $password, $auto = false) {
+        if ($auto) $user_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "user WHERE user_group_id = '1' AND status = '1'"); else]]></add>
+		</operation>
+	</file>
+
+	
+</modification>

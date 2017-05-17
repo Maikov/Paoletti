@@ -1,0 +1,54 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Content Management System: news/blog and static pages creation.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $information; ?>"><?php echo $text_information; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<?php echo $text_catalog; ?>]]></search>
+			<add><![CDATA[<li id="maxcms"><a class="top"><?php echo $cms_menu; ?></a>
+        <ul>
+          <li><a href="<?php echo $information; ?>"><?php echo $information_pages; ?></a></li>
+          <li><a href="<?php echo $news; ?>"><?php echo $text_news; ?></a></li>
+          <li><a href="<?php echo $text_blocks; ?>"><?php echo $text_modules; ?></a></li>
+          <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+        </ul>
+      </li>]]></add>
+		</operation>
+	</file>
+
+    <file name="admin/controller/common/header.php">
+        <operation error="skip">
+            <search position="before"><![CDATA[$this->data['zone']]]></search>
+            <add><![CDATA[			$this->data['text_blocks'] = $this->url->link('module/welcome', 'token=' . $this->session->data['token'], 'SSL');]]></add>
+        </operation>
+    </file>
+
+    <file name="admin/view/template/module/welcome.tpl">
+        <operation error="skip">
+            <search position="replace"><![CDATA[module.png]]></search>
+            <add><![CDATA[report.png]]></add>
+        </operation>
+    </file>
+
+    <file name="catalog/view/theme/*/template/information/information.tpl">
+        <operation error="skip">
+            <search position="replace" offset="2"><![CDATA[<div class="buttons">]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+    </file>
+	
+</modification>

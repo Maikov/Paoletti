@@ -1,0 +1,34 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<!-- This is Lite version of MaxDownload extension. Read about full version at http://OpenShop.org.ua/digital -->
+
+<modification>
+	<id><![CDATA[Upload really big files.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://FileShop.Biz]]></author>
+	<file name="admin/view/template/catalog/download_form.tpl">
+		<operation error="skip">
+			<search position="after"><![CDATA[<?php echo $header; ?>]]></search>
+			<add><![CDATA[<script src="view/javascript/mxUpload.js"></script>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[name="download_description]]></search>
+			<add><![CDATA[id="desc" name="download_description]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td><input type="text" name="filename" value="<?php echo $filename; ?>" /> <a id="button-upload" class="button"><?php echo $button_upload; ?></a>]]></search>
+			<add><![CDATA[            <!-- MX start -->
+            <td><input type="text" name="filename" value="<?php echo $filename; ?>" />
+                <a id="ubutton" class="button" onclick="document.getElementById('filepicker').click();">
+                <?php echo $button_upload; ?></a>
+                <input type="file" id="filepicker" style="display:none;" onchange="mxUpload();"/>
+                <div id="mxprogress" style="display:none;"><?php echo $uploading; ?> <div id="progressbar" className="progressbar"></div></div>
+            <!-- end -->
+]]></add>
+		</operation>
+	</file>
+</modification>

@@ -1,0 +1,24 @@
+<?php
+// Heading
+$_['heading_title']     = 'Haku';
+ 
+// Text
+$_['text_search']       = 'Hakua vastaavat tuotteet';
+$_['text_keyword']      = 'Hakusanat';
+$_['text_category']     = 'Kaikki tuotealueet';
+$_['text_critea']       = 'Hakuehdot';
+$_['text_empty']        = 'Haulla ei l&ouml;ytynyt yht&auml;&auml;n tuotetta.';
+$_['text_stars']        = '%s/5:st&auml; t&auml;hdest&auml;!';
+$_['text_sort']         = 'J&auml;rjest&auml;:';
+$_['text_name_asc']     = 'Nimen perusteella, A - &Ouml;';
+$_['text_name_desc']    = 'Nimen perusteella, &Ouml; - A';
+$_['text_price_asc']    = 'Hinnan perusteella, halvin ensin';
+$_['text_price_desc']   = 'Hinnan perusteella, kallein ensin';
+$_['text_rating_asc']   = 'Arvosteluiden perusteella, huonoin ensin'; 
+$_['text_rating_desc']  = 'Arvosteluiden perusteella, paras ensin';
+
+// Entry
+$_['entry_search']      = 'Haku:';
+$_['entry_description'] = 'Hae my&ouml;s tuotteiden kuvauksista';
+$_['entry_model']       = 'Hae my&ouml;s tuotteiden malleista';
+?>

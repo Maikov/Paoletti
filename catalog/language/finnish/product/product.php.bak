@@ -1,0 +1,48 @@
+<?php
+// Text
+$_['text_enlarge']        = 'Klikkaa suurentaaksesi';
+$_['text_discount']       = 'Paljousalennus:';
+$_['text_options']        = 'Saatavilla olevat vaihtoehdot:';
+$_['text_error']          = 'Tuotetta ei l&ouml;ytynyt!';
+$_['text_price']          = 'Hinta:';
+$_['text_availability']   = 'Saatavuus:';
+$_['text_model']          = 'Malli:';
+$_['text_manufacturer']   = 'Valmistaja:';
+$_['text_instock']        = 'Varastossa';
+$_['text_order_quantity'] = 'Tilausm&auml;&auml;r&auml;';
+$_['text_price_per_item'] = 'Hinta/kpl';
+$_['text_write']          = 'Anna arvio';
+$_['text_no_reviews']     = 'Ei yht&auml;&auml;n arvostelua.';
+$_['text_average']        = 'Keskiarvo:';
+$_['text_stars']          = '%s/5:st&auml; t&auml;hdest&auml;!';
+$_['text_no_rating']      = 'Ei arvosteltu';
+$_['text_no_images']      = 'Tuotteesta ei l&ouml;ydy lis&auml;kuvia.';
+$_['text_no_related']     = 'Tuotteeseen liittyvi&auml; tuotteita ei l&ouml;ytynyt.';
+$_['text_qty']            = 'M&auml;&auml;r&auml;:';
+$_['text_note']           = '<span style="color: #FF0000;">HUOM:</span> HTML-koodia ei k&auml;&auml;nnet&auml;!';
+$_['text_success']        = 'Kiitos arviostasi. Arvio on l&auml;hetetty yll&auml;pit&auml;j&auml;lle hyv&auml;ksytt&auml;v&auml;ksi.';
+$_['text_wait']           = 'Odota!';
+$_['text_search']         = 'Haku';
+$_['text_tags']           = 'Tags:';
+$_['text_minimum']        = '(T&auml;m&auml;n tuotteen minim&auml;&auml;r&auml; on %s)';
+
+// Entry
+$_['entry_name']          = 'Nimi:';
+$_['entry_review']        = 'Arviosi:';
+$_['entry_rating']        = 'T&auml;hdet:';
+$_['entry_good']          = 'Hyv&auml;&auml;';
+$_['entry_bad']           = 'Huonoa';
+$_['entry_captcha']       = 'Anna varmistuskoodi (alla kuvassa):';
+
+// Tabs
+$_['tab_description']     = 'Kuvaus';
+$_['tab_image']           = 'Lis&auml;kuvat'; 
+$_['tab_review']          = 'Arvosteluita (%s)';
+$_['tab_related']         = 'Liittyv&auml;t tuotteet'; 
+
+// Error
+$_['error_name']          = 'Virhe: Nimen pit&auml;&auml; olla 3-25 merkki&auml; pitk&auml;!';
+$_['error_text']          = 'Virhe: Arvion pit&auml;&auml; olla 25-1000 merkki&auml; pitk&auml;!';
+$_['error_rating']        = 'Virhe: Valitse t&auml;hdet!';
+$_['error_captcha']       = 'Virhe: Kirjaamasi varmistuskoodi ei vastaa annettua!';
+?>

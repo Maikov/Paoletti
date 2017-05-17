@@ -1,0 +1,55 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides downloads feature]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<td><?php echo $entry_download; ?></td>]]></search>
+			<add><![CDATA[<td style="display:none;"><?php echo $entry_download; ?></td>
+<td style="display:none;"><div class="scrollbox">]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/default/template/module/account.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/default/template/account/account.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/language/english/checkout/success.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[$_['text_customer'] = '<p>Your order <a href="%s">#%s</a> has been successfully processed!</p><p>You can view your order history by going to the <a href="%s">my account</a> page and by clicking on <a href="%s">history</a>.</p><p>If your purchase has an associated download, you can go to the account <a href="%s">downloads</a> page to view them.</p><p>Please direct any questions you have to the <a href="%s">store owner</a>.</p><p>Thanks for shopping with us online!</p>';]]></search>
+			<add><![CDATA[$_['text_customer'] = '<p>Your order <a href="%s">#%s</a> has been successfully processed!</p><p>You can view your order history by going to the <a href="%s">my account</a> page and by clicking on <a href="%s">history</a>.</p><p>Please direct any questions you have to the <a href="%s">store owner</a>.</p><p>Thanks for shopping with us online!</p>';]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_list.tpl">
+		<operation error="log">
+			<search position="replace"><![CDATA[<br />[ <a href="<?php echo $action['downloads']; ?>"><?php if (!isset($product_downloads)) $product_downloads='Downloads'; echo $product_downloads; ?></a> ]]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/information/sitemap.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+
+</modification>

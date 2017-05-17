@@ -1,0 +1,24 @@
+-----------------------------------------
+OPENSHOP: e-commerce CMS
+-----------------------------------------
+Version: Release [3th of November 2012]
+Project site: http://OpenShop.org.ua
+
+
+USE ENTIRE PACKAGE TO CREATE NEW SHOP FROM SCRATCH
+To add OpenShop to existing Opencart shop, please use [OpenShop-Extension.zip]
+
+Read [OpenShop.txt] to find out more about OPENSHOP concepts and features.
+
+----------------------------
+INSTALL/UPGRADE INSTRUCTIONS
+----------------------------
+
+1. Upload [OpenShop-Installer.zip] to your new shop location 
+   (e.g. /public_html/store or /public_html) 
+   and extract it there.
+
+2. Visit the store homepage
+   e.g. http://www.example.com or http://www.example.com/store/
+
+3. Follow the onscreen instructions.

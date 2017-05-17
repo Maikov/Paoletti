@@ -1,0 +1,10 @@
+<?php
+// Heading
+$_['heading_title']  = 'Seuratuimmat tuotteet';
+
+// Column
+$_['column_name']    = 'Tuotteen nimi';
+$_['column_model']   = 'Malli';
+$_['column_viewed']  = 'Katsottu';
+$_['column_percent'] = '%';
+?>

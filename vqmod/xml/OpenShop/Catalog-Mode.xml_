@@ -1,0 +1,54 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides "Add to Cart" buttons, Cart and checkout link. Also hides zero prices.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="catalog/view/theme/*/template/product/*.tpl">
+		<operation error="skip">
+			<search position="replace" error="log"><![CDATA[<input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" />]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+        			<search position="replace" error="log"><![CDATA[<a onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button"><?php echo $button_cart; ?></a></div>]]></search>
+        			<add><![CDATA[]]></add>
+        </operation>
+	</file>
+    <file name="catalog/view/theme/*/template/module/*.tpl">
+        <operation error="skip">
+            <search position="replace" error="log"><![CDATA[<input type="button" value="<?php echo $button_cart; ?>" onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button" />]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+    </file>
+    <file name="catalog/view/theme/*/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace" error="log"><![CDATA[<?php echo $cart; ?>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" error="log"><![CDATA[<a href="<?php echo $shopping_cart; ?>"><?php echo $text_shopping_cart; ?></a>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" error="log"><![CDATA[<a href="<?php echo $checkout; ?>"><?php echo $text_checkout; ?></a>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+
+	</file>
+    <file name="catalog/view/theme/*/template/product/product.tpl">
+        <operation error="skip">
+            <search position="replace" error="log"><![CDATA[<div class="cart">]]></search>
+            <add><![CDATA[<div class="cart" style="display:none;">]]></add>
+        </operation>
+    </file>
+    <file name="system/library/currency.php">
+		<operation error="skip">
+			<search position="before" offset="3"><![CDATA[public function convert($value, $from, $to) {]]></search>
+			<add><![CDATA[if ($number==0) $string=false;]]></add>
+		</operation>
+    </file>
+</modification>

@@ -1,0 +1,82 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Automatically checks for updates and patches and installs them. Rewrites OpenShop files with newer ones without notice. Opencart original files are not be affected.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+
+	<file name="admin/controller/common/login.php">
+		<operation error="log">
+			<search position="replace"><![CDATA[$this->redirect($this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'));]]></search>
+			<add><![CDATA[$this->redirect($this->url->link('common/home', 'token=' . $this->session->data['token'] . '&checkupdate=1', 'SSL'));]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/view/template/common/home.tpl">
+		<operation error="log">
+			<search position="before"><![CDATA[<?php if ($error_install) { ?>]]></search>
+			<add><![CDATA[<?php if ($success) { ?>
+  <div class="success"><?php echo $success; ?></div>
+  <?php } ?>]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/controller/common/home.php">
+		<operation error="log">
+			<search position="after"><![CDATA[public function index() {]]></search>
+			<add><![CDATA[$this->data['success'] = '';
+        if (isset($this->request->get['checkupdate'])) {
+         while (true) {
+             umask(0002);
+             // ----- Download and extract ZIP
+             $q = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'openshop_update_n'")->row;
+             if ($q) $n=$q['value']; else
+             {$n=1;
+                 $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET value = '" . ($n) . "', `key` = 'openshop_update_n'");
+             }
+             $zFile = 'update' .$n . '.zip';
+             $zUrl = 'http://OpenShop.org.ua/updates/';
+             $zPath = '../';
+
+             $zOut = fopen($zPath . $zFile , 'wb');
+             $curl = curl_init();
+             curl_setopt($curl, CURLOPT_FILE, $zOut);
+             curl_setopt($curl, CURLOPT_HEADER, false);
+             curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+             curl_setopt($curl, CURLOPT_FAILONERROR, 1);
+             curl_setopt($curl, CURLOPT_URL, $zUrl.$zFile);
+             curl_exec($curl);
+             fclose($zOut);
+
+             $zResult = curl_getinfo($curl);
+
+             if($zResult['http_code'] == 200) {
+                 // Extract ZIP
+                 $zip = new ZipArchive;
+                 if ($zip->open($zPath . $zFile) === TRUE) {
+                     $zip->extractTo($zPath);
+                     $zip->close();
+                     unlink($zPath . $zFile);
+                     include('../info.php');
+                     unlink('../info.php');
+                     $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET value = '" . ($n+1) . "' WHERE `key` = 'openshop_update_n'");
+                 } else {
+                     $this->data['error_warning'] ='Failed to extract ' . $zFile . ' file! <br/>Bad ZIP archieve.';
+                     break;
+                 }
+             }
+             else {
+                 unlink($zPath . $zFile);
+                 break;
+             }
+             // ----- End of ZIP
+         }
+        }]]></add>
+		</operation>
+	</file>
+
+</modification>

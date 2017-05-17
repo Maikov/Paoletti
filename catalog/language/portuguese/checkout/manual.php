@@ -1,0 +1,29 @@
+<?php
+// Text
+$_['text_for']          = '%s Certificado de Presente para %s';
+$_['text_success']      = 'O pedido foi recalculado com sucesso!';
+
+// Error
+$_['error_warning']     = 'Atenção: Preencha o formulário cuidadosamente para evitar erros!';
+$_['error_permission']  = 'Atenção: Não tem permissão para aceder a esta página, por favor, contacte-nos para assistência.';
+$_['error_customer']    = 'Atenção: Não é possível encontrar o comprador seleccionado!';
+$_['error_email']       = 'Atenção: A e-mail não é válido!';
+$_['error_postcode']    = 'Atenção: O Cód. Postal deve ter no mínimo 8 caracteres!';
+$_['error_country']     = 'Atenção: Seleccione um País.';
+$_['error_zone']        = 'Atenção: Seleccione um Distrito.';
+$_['error_stock']       = 'Produtos marcados com *** não estão disponíveis na quantia desejada ou não se encontram em stock!';
+$_['error_minimum']     = 'A quantidade mínima para %s é %s!';	
+$_['error_required']    = '%s é obrigatório!';
+$_['error_shipping']    = 'Atenção: Escolha uma forma de entrega!';
+$_['error_no_shipping'] = 'Atenção: Não há opções de entrega disponíveis!';
+$_['error_payment']     = 'Atenção: Escolha uma forma de pagamento!';
+$_['error_no_payment']  = 'Atenção: Não há opções de pagamento disponíveis!';
+$_['error_coupon']      = 'Atenção: O Cupão é inválido, expirou, atingiu o seu limite de uso ou o seu valor não foi atingido!';
+$_['error_voucher']     = 'Atenção: O Vale Presente é inválido ou já foi utilizado!';
+$_['error_reward']      = 'Atenção: Coloque a quantidade de pontos de fidelidade que deseja utilizar!';	
+$_['error_points']      = 'Atenção: Não tem %s pontos de fidelidade!';
+$_['error_maximum']     = 'Atenção: O número máximo de pontos de fidelidade que podem ser utilizados é %s!';
+$_['error_to_name']     = 'O nome do destinatário deve ter entre 1 e 64 caracteres!';
+$_['error_from_name']   = 'O seu nome deve ter entre 1 e 64 caracteres!';
+$_['error_amount']      = 'O valor deve ser entre %s e %s!';
+?>

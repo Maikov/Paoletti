@@ -1,0 +1,56 @@
+<?php
+
+$_['heading_title'] = 'Tuotepalautukset';
+$_['text_account'] = 'Tili';
+$_['text_return'] = 'Palautustiedot';
+$_['text_description'] = '<p>Täytäalla oleva kaavake saadaksesi RMA numeron.</p>';
+$_['text_order'] = 'Tilauksen tiedot';
+$_['text_product'] = 'Tuotetiedot &amp; Syy palautukselle';
+$_['text_additional'] = 'Lisätiedot';
+$_['text_message'] = '<p>Kiitos palautuspyynnöstänne. Pyyntönne on välitetty eteenpäin käsiteltäväksi.</p><p> Teille ilmoitetaan sähköpostitse kun pyyntönne on käsitelty.</p>';
+$_['text_return_id'] = 'Palautus ID:';
+$_['text_order_id'] = 'Tilaus ID:';
+$_['text_date_ordered'] = 'Tilaus Pvm:';
+$_['text_status'] = 'Tila:';
+$_['text_date_added'] = 'Pvm lisätty:';
+$_['text_customer'] = 'Asiakas:';
+$_['text_comment'] = 'Palautuksen kommentit';
+$_['text_products'] = 'Tuotteet:';
+$_['text_history'] = 'Palautushistoria';
+$_['text_empty'] = 'Et ole tehnyt aiempia palautuksia!';
+$_['text_error'] = 'Palautus jota pyysit ei löytynyt!';
+$_['column_name'] = 'Tuotteen nimi';
+$_['column_model'] = 'Malli';
+$_['column_quantity'] = 'Määrä';
+$_['column_price'] = 'Hinta';
+$_['column_opened'] = 'Avattu';
+$_['column_comment'] = 'Kommentti';
+$_['column_reason'] = 'Syy';
+$_['column_action'] = 'Toiminta';
+$_['column_date_added'] = 'Pvm lisätty';
+$_['column_status'] = 'Tila';
+$_['entry_order_id'] = 'Tilaus ID:';
+$_['entry_date_ordered'] = 'Tilauksen Pvm:';
+$_['entry_firstname'] = 'Etunimi:';
+$_['entry_lastname'] = 'Sukunimi:';
+$_['entry_email'] = 'E-Mail:';
+$_['entry_telephone'] = 'Puhelin:';
+$_['entry_product'] = 'Tuotenimi:';
+$_['entry_model'] = 'Tuotekoodi:';
+$_['entry_quantity'] = 'Määrä:';
+$_['entry_reason'] = 'Syy palautukselle:';
+$_['entry_opened'] = 'Tuote on avattu:';
+$_['entry_fault_detail'] = 'Viallinen tai muut tiedot:';
+$_['entry_captcha'] = 'Anna koodi joka on alla olevassa laatikossa:';
+$_['error_order_id'] = 'Tilaus ID vaaditaan!';
+$_['error_firstname'] = 'Etunimen täytyy olla 1 - 32 merkkiä pitkä!';
+$_['error_lastname'] = 'Sukunimen täytyy olla 1 - 32 merkkiä pitkä!';
+$_['error_email'] = 'E-Mail osoite ei ole oikein!';
+$_['error_telephone'] = 'Puhelinnumeron täytyy olla 1 - 32 merkkiä pitkä!';
+$_['error_product'] = 'Sinun pitäävalita vähintään yksi tuote!';
+$_['error_name'] = 'Tuotteen nimen täytyy olla 3 - 255 merkkiä pitkä!';
+$_['error_model'] = 'Tuotemallin koodin pitää olla 3 - 64 merkkiä pitkä!';
+$_['error_reason'] = 'Sinun pitää valita syy palautukselle!';
+$_['error_captcha'] = 'Vahvistuskoodi ei vastaa kuvaa!';
+
+?>

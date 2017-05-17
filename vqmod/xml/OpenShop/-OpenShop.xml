@@ -1,0 +1,292 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[OpenShop core modifications]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+
+<!-- OpenShop language files -->
+    <file name="system/library/language.php">
+    
+            <operation error="log">
+            <search position="after"><![CDATA[$this->directory = $directory;]]></search>
+            <add><![CDATA[
+            // Load OpenShop localization strings
+            $_ = array();
+            $os_def = DIR_LANGUAGE . 'english/openshop.php';
+            if (file_exists($os_def)) require($os_def);
+            $os_cur = DIR_LANGUAGE . $this->directory . '/openshop.php';
+            if ($os_def != $os_cur)
+                if (file_exists($os_cur)) require($os_cur);
+            global $os;
+            $os= $_;
+            ]]></add>
+        </operation>
+    
+    </file>
+    
+    <file name="system/engine/controller.php">
+        <operation error="log">
+            <search position="after"><![CDATA[protected $output;]]></search>
+            <add><![CDATA[protected $os;]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after"><![CDATA[$this->registry = $registry;]]></search>
+            <add><![CDATA[
+            global $os;
+            $this->os = $os;
+            ]]></add>
+        </operation>
+        <operation error="log">
+            <search position="before"><![CDATA[extract($this->data);]]></search>
+            <add><![CDATA[ extract($this->os); ]]></add>
+        </operation>
+    </file>
+
+<!-- Admin width limit fix // Background change // Top menu & buttons hovers -->
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[$scripts as $script]]></search>
+			<add><![CDATA[<style type="text/css">
+body {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #193050;
+}
+
+#header .div1 {
+    background: url('view/image/openshop_header.png') repeat-x;
+}
+.overview {
+	width: 24%;
+}
+.statistic {
+	float: left;
+    padding-left: 15px;
+}
+.news {
+    float: right;
+    width: 24%;
+    margin-bottom: 20px;
+}
+
+a.button:hover {
+    background: #1655b0;
+}
+
+#menu > ul li li:hover, #menu > ul li li.sfhover {
+    background: #777777;
+}
+
+#menu > ul .top:hover {
+    background: url('view/image/openshop_hover.png') repeat-x;
+}
+
+#menu > ul .selected .top {
+    background: url('view/image/openshop_selected.png') repeat-x;
+}
+
+</style>]]></add>
+		</operation>
+        <!-- Logo change -->
+		<operation error="skip">
+			<search position="replace"><![CDATA[logo.png]]></search>
+			<add>openshop_logo.png</add>
+		</operation>
+	</file>
+
+<!-- Feedback widget -->
+
+	<file name="admin/view/template/common/footer.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[</body>]]></search>
+			<add><![CDATA[<script type='text/javascript'>
+
+var _ues = {
+host:'openshop.userecho.com',
+forum:'14452',
+lang:'en',
+tab_corner_radius:10,
+tab_font_size:20,
+tab_image_hash:'RmVlZGJhY2s%3D',
+tab_alignment:'right',
+tab_text_color:'#FFFFFF',
+tab_bg_color:'#00368E',
+tab_hover_color:'#001F6A'
+};
+
+(function() {
+    var _ue = document.createElement('script'); _ue.type = 'text/javascript'; _ue.async = true;
+    _ue.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.userecho.com/js/widget-1.4.gz.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(_ue, s);
+  })();
+
+</script>]]></add>
+		</operation>
+	</file>
+
+<!-- Admin Bottom info -->
+    <file name="admin/controller/common/footer.php">
+        <operation error="skip">
+            <search position="after"><![CDATA[sprintf($this->language->get('text_footer')]]></search>
+            <add><![CDATA[$this->data['text_footer'] = "<a href='http://OpenShop.org.ua'><b>OpenShop</b></a><br /> ".$this->os['based_on']." " . $this->data['text_footer'];]]></add>
+        </operation>
+    </file>
+
+<!-- Frontend Bottom info -->
+    <file name="catalog/controller/common/footer.php">
+        <operation error="skip">
+            <search position="replace"><![CDATA[$this->data['powered']]]></search>
+            <add><![CDATA[$this->data['powered'] = $this->config->get('config_name') . ' &copy; ' . date('Y', time()) . '<br>' . $this->os['powered_by'] . ' <a href="http://OpenShop.org.ua" target="_blank">OpenShop</a> ('. $this->os['based_on'] .' <a href="http://opencart.com" target="_blank">OpenCart</a>)';//]]></add>
+        </operation>
+    </file>
+
+    <!-- Downloads guide -->
+    <file name="admin/view/template/catalog/download_list.tpl">
+        <operation error="skip">
+            <search position="before" offset="1"><![CDATA[<?php echo $footer; ?>]]></search>
+            <add><![CDATA[<?php echo $guide; ?>]]></add>
+        </operation>
+    </file>
+    <file name="admin/controller/catalog/download.php">
+        <operation error="skip">
+            <search position="before"><![CDATA[$this->template = 'catalog/download_list.tpl';]]></search>
+            <add><![CDATA[
+          $curl = curl_init('http://OpenShop.org.ua/guide_downloads/');
+          curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+          curl_setopt($curl, CURLOPT_FAILONERROR, 1);
+          curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+          $this->data['guide'] = curl_exec($curl);]]></add>
+        </operation>
+    </file>
+
+    <!-- Dashboard news -->
+    <file name="admin/view/template/common/home.tpl">
+        <operation error="skip">
+            <search position="before"><![CDATA[<div class="statistic">]]></search>
+            <add><![CDATA[<div class="news">
+        <div class="dashboard-heading"><?php echo $dashboard_news; ?></div>
+        <div class="dashboard-content" style="height : 180px; overflow : auto;">
+            <?php echo $news; ?>
+        </div>
+      </div>]]></add>
+        </operation>
+    </file>
+    <file name="admin/controller/common/home.php">
+        <operation error="skip">
+            <search position="before"><![CDATA[$this->template = 'common/home.tpl';]]></search>
+            <add><![CDATA[
+          $curl = curl_init('http://OpenShop.org.ua/dashboard_news/');
+          curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+          curl_setopt($curl, CURLOPT_FAILONERROR, 1);
+          curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+          $this->data['news'] = curl_exec($curl);]]></add>
+        </operation>
+    </file>
+
+<!-- 9responsive adv -->
+    <file name="admin/view/template/setting/setting.tpl">
+        <operation error="skip">
+            <search position="after" offset="3"><![CDATA[<option value="<?php echo $template; ?>"><?php echo $template; ?></option>]]></search>
+            <add><![CDATA[
+            -->]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="after" offset="2"><![CDATA[<option value="<?php echo $template; ?>"><?php echo $template; ?></option>]]></search>
+            <add><![CDATA[
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i><?php echo $more_templates; ?> <a href="http://www.9opencartthemes.com/24/quality-responsive-opencart-themes.html" target="_blank">9ResponsiveThemes.Com</a></i>
+            </td><!--]]></add>
+        </operation>
+    </file>
+
+<!-- Dashboard summary upgrade -->
+
+	<file name="admin/view/template/common/home.tpl">
+		<operation error="skip">
+			<search position="replace" offset="36"><![CDATA[<div class="dashboard-heading"><?php echo $text_overview; ?></div>]]></search>
+			<add><![CDATA[<div class="dashboard-heading"><?php echo $text_overview; ?></div>
+<div class="dashboard-content">
+          <table class="list">
+            <tr style="cursor: pointer;" onclick="location = '<?php echo $this->url->link('report/sale_order', 'token=' . $this->session->data['token'], 'SSL'); ?>'">
+              <td class="right"><?php echo $text_total_sale; ?></td>
+              <td class="left"><b><font color="green"><?php echo $total_sale; ?></font></b></td>
+            </tr>
+             <tr style="cursor: pointer;" onclick="location = '<?php echo $this->url->link('sale/order', 'token=' . $this->session->data['token'], 'SSL'); ?>'">
+              <td class="right"><?php echo $text_total_order; ?></td>
+              <td class="left"><b><?php echo $total_order; ?></b></td>
+            </tr>
+            <tr style="cursor: pointer;" onclick="location = '<?php echo $this->url->link('sale/customer', 'token=' . $this->session->data['token'], 'SSL'); ?>'">
+              <td class="right"><?php echo $text_total_customer; ?></td>
+              <td class="left"><b><?php echo $total_customer; ?></b></td>
+            </tr>
+            <tr style="cursor: pointer;" onclick="location = '<?php echo $this->url->link('sale/affiliate', 'token=' . $this->session->data['token'], 'SSL'); ?>'"><td class="right"><?php echo $text_total_affiliate; ?></td><td class="left"><b><?php echo $total_affiliate; ?></b></td>
+            </tr>
+
+            
+            
+
+            
+            <?php if ($total_customer_approval) { ?><tr style="cursor: pointer;" onclick="location = '<?php echo $this->url->link('sale/customer', 'token=' . $this->session->data['token'], 'SSL'); ?>'">
+                <td class="right"><?php echo $text_total_customer_approval; ?></td>
+                <td class="left"><b><font color="red"><?php echo $total_customer_approval; ?></font></b></td>
+            </tr><?php } ?>
+            <?php if ($total_affiliate_approval) { ?><tr style="cursor: pointer;" onclick="location = '<?php echo $this->url->link('sale/affiliate', 'token=' . $this->session->data['token'], 'SSL'); ?>'">
+                <td class="right"><?php echo $text_total_affiliate_approval; ?></td>
+                <td class="left"><b><font color="red"><?php echo $total_affiliate_approval; ?></font></b></td>
+            </tr><?php } ?>
+            <?php if ($total_review_approval) { ?><tr style="cursor: pointer;" onclick="location = '<?php echo $this->url->link('catalog/review', 'token=' . $this->session->data['token'], 'SSL'); ?>'">
+                <td class="right"><?php echo $text_total_review_approval; ?></td>
+                <td class="left"><b><font color="red"><?php echo $total_review_approval; ?></font></b></td>
+            </tr><?php } ?>
+          </table>
+        </div>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<option value="week"><?php echo $text_week; ?></option>]]></search>
+			<add><![CDATA[<option value="week" selected="true"><?php echo $text_week; ?></option>]]></add>
+		</operation>
+	</file>
+
+<!-- Table rows hover -->
+
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[</head>]]></search>
+			<add><![CDATA[    <script type="text/javascript">
+    $(function(){
+        $('table.list tbody tr').hover(function(){
+            $(this).children('td').css('background-color', '#f2f2f2');
+        },function(){
+            $(this).children('td').css('background-color', '#fff');
+        });
+    });
+    </script>]]></add>
+		</operation>
+	</file>
+
+
+<!-- Save user login for year -->
+
+	<file name="system/library/session.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[session_set_cookie_params(0, '/');]]></search>
+			<add><![CDATA[session_set_cookie_params(31536000, '/');]]></add>
+		</operation>
+	</file>
+
+<!-- Remove token warning -->
+
+	<file name="admin/controller/common/login.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[$this->error['warning'] = $this->language->get('error_token');]]></search>
+			<add><![CDATA[//]]></add>
+		</operation>
+	</file>
+	
+</modification>

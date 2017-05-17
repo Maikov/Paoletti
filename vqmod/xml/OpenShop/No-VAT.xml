@@ -1,0 +1,52 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides taxes functionality.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace" offset="5"><![CDATA[<li><a class="parent"><?php echo $text_tax; ?></a>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $report_sale_tax; ?>"><?php echo $text_report_sale_tax; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/setting/setting.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<h2><?php echo $text_tax; ?></h2>]]></search>
+			<add><![CDATA[<!--MX start--><div style="display:none;">]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<h2><?php echo $text_account; ?></h2>]]></search>
+			<add><![CDATA[</div><!--MX End-->]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/setting/store_form.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<h2><?php echo $text_tax; ?></h2>]]></search>
+			<add><![CDATA[<!--MX start--><div style="display:none;">]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<h2><?php echo $text_account; ?></h2>]]></search>
+			<add><![CDATA[</div><!--MX End-->]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_tax_class; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX2]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_tax_class; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+
+	</file>
+</modification>

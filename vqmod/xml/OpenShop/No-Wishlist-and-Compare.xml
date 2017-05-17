@@ -1,0 +1,91 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides Wishlist and Compare frontend functions.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="catalog/view/theme/*/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<a href="<?php echo $wishlist; ?>" id="wishlist-total"><?php echo $text_wishlist; ?></a>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/product/product.tpl">
+		<operation error="skip">
+			<search position="replace" offset="2"><![CDATA[<div><span>&nbsp;&nbsp;&nbsp;<?php echo $text_or; ?>&nbsp;&nbsp;&nbsp;</span></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/product/category.tpl">
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist"><a onclick="addToWishList('<?php echo $product['product_id']; ?>');"><?php echo $button_wishlist; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist">' + $(element).find('.wishlist').html() + '</div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<div class="product-compare"><a href="<?php echo $compare; ?>" id="compare-total"><?php echo $text_compare; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/product/manufacturer_info.tpl">
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist"><a onclick="addToWishList('<?php echo $product['product_id']; ?>');"><?php echo $button_wishlist; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist">' + $(element).find('.wishlist').html() + '</div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<div class="product-compare"><a href="<?php echo $compare; ?>" id="compare-total"><?php echo $text_compare; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/product/search.tpl">
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist"><a onclick="addToWishList('<?php echo $product['product_id']; ?>');"><?php echo $button_wishlist; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist">' + $(element).find('.wishlist').html() + '</div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<div class="product-compare"><a href="<?php echo $compare; ?>" id="compare-total"><?php echo $text_compare; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/product/special.tpl">
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist"><a onclick="addToWishList('<?php echo $product['product_id']; ?>');"><?php echo $button_wishlist; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div class="wishlist">' + $(element).find('.wishlist').html() + '</div>	]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<div class="product-compare"><a href="<?php echo $compare; ?>" id="compare-total"><?php echo $text_compare; ?></a></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/common/footer.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $wishlist; ?>"><?php echo $text_wishlist; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/module/account.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $wishlist; ?>"><?php echo $text_wishlist; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+</modification>

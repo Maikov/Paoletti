@@ -1,0 +1,15 @@
+<?php
+// Heading
+$_['heading_title']     = 'Tarjoukset';
+
+// Text
+$_['text_empty']        = 'T&auml;ll&auml; hetkell&auml; ei ole tarjouksia.';
+$_['text_stars']        = '%s/5:st&auml; t&auml;hdest&auml;!';
+$_['text_sort']         = 'J&auml;rjest&auml;:';
+$_['text_name_asc']     = 'Nimen perusteella, A - Z';
+$_['text_name_desc']    = 'Nimen perusteella, Z - A';
+$_['text_price_asc']    = 'Hinnan perusteella, halvin ensin';
+$_['text_price_desc']   = 'Hinnan perusteella, kallein ensin';
+$_['text_rating_asc']   = 'Arvosteluiden perusteella, huonoin ensin'; 
+$_['text_rating_desc']  = 'Arvosteluiden perusteella, paras ensin';
+?>

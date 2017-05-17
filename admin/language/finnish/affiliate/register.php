@@ -1,0 +1,54 @@
+<?php
+
+$_['heading_title'] = 'Yhteistyö Ohjelma';
+$_['text_account'] = 'Tili';
+$_['text_register'] = 'Yhteistyökumppani rekisteröidy';
+$_['text_account_already'] = 'If you already have an account with us, please login at the <a href="%s">login page</a>.';
+$_['text_signup'] = 'To create an affiliate account, fill in the form below ensuring you complete all the required fields:';
+$_['text_your_details'] = 'Henkilökohtaiset tiedot';
+$_['text_your_address'] = 'Osoitteesi';
+$_['text_payment'] = 'Maksutiedot';
+$_['text_your_password'] = 'Salasanasi';
+$_['text_cheque'] = 'Shekki';
+$_['text_paypal'] = 'PayPal';
+$_['text_bank'] = 'Pankkisiirto';
+$_['text_agree'] = 'Olen lukenut ja hyväksyn <a class="fancybox" href="%s" alt="%s"><b>%s</b></a>';
+$_['entry_firstname'] = 'Etunimi:';
+$_['entry_lastname'] = 'Sukunimi:';
+$_['entry_email'] = 'E-Mail:';
+$_['entry_telephone'] = 'Puhelin:';
+$_['entry_fax'] = 'Fax:';
+$_['entry_company'] = 'Yritys:';
+$_['entry_website'] = 'Kotisivu:';
+$_['entry_address_1'] = 'Osoite 1:';
+$_['entry_address_2'] = 'Osoite 2:';
+$_['entry_postcode'] = 'Postinumero:';
+$_['entry_city'] = 'Kaupunki:';
+$_['entry_country'] = 'Maa:';
+$_['entry_zone'] = 'Alue / Maakunta:';
+$_['entry_tax'] = 'Vero ID:';
+$_['entry_payment'] = 'Maksutapa:';
+$_['entry_cheque'] = 'Shekin maksajan nimi:';
+$_['entry_paypal'] = 'PayPal sähköposti osoite:';
+$_['entry_bank_name'] = 'Pankin nimi:';
+$_['entry_bank_branch_number'] = 'ABA/BSB numero (Runkonumero):';
+$_['entry_bank_swift_code'] = 'SWIFT Koodi:';
+$_['entry_bank_account_name'] = 'Tilin nimi:';
+$_['entry_bank_account_number'] = 'Tilinumero:';
+$_['entry_password'] = 'Salasana:';
+$_['entry_confirm'] = 'Salasanan vahvistus:';
+$_['error_exists'] = 'Varoitus: E-Mail osoite on jo rekisteröity!';
+$_['error_firstname'] = 'Etunimen täytyy olla 1 - 32 merkkiä pitkä!';
+$_['error_lastname'] = 'Sukunimen täytyy olla 1 - 32 merkkiä pitkä!';
+$_['error_email'] = 'E-Mail Osoite ei kelpaa tai on väärin!';
+$_['error_telephone'] = 'Puhelinnumeron täytyy olla 3-32 merkkiä pitkä!';
+$_['error_password'] = 'Salasanan täytyy olla 4 - 20 merkkiä pitkä!';
+$_['error_confirm'] = 'salasanan vahvistus ei vastaa salasanaa!';
+$_['error_address_1'] = 'Osoite 1 pitää olla 4 - 128 merkkiä pitkä!';
+$_['error_city'] = 'Kaupungin täytyy olla 2 - 128 merkkiä pitkä!';
+$_['error_country'] = 'Valitse maa!';
+$_['error_zone'] = 'Valitse alue / maakunta!';
+$_['error_postcode'] = 'Postinumeron täytyy olla 2 - 24 merkkiä pitkä!';
+$_['error_agree'] = 'Varoitus: Sinun pitää hyväksyä %s!';
+
+?>

@@ -1,0 +1,11 @@
+catalog ok
+common ok
+customer ok
+design EI
+error ok
+extension ok
+
+tästä eteenpäin en ole mennyt. kansioiden joukossa on suomennettuja jotka oon ripannut vanhasta versiosta ja sit on niitä
+uusia joita on tullut tän uuden version mukana
+
+

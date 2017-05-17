@@ -1,0 +1,83 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Tunes product editing page: moves image and price to first tab, makes price big and nice, highlights product title.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[size="100"]]></search>
+			<add><![CDATA[style="font-size: 18px;" size="90"]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before" offset="2"><![CDATA[<td><?php echo $entry_price; ?></td>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<td><?php echo $entry_price; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="5"><![CDATA[<td><?php echo $entry_image; ?></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[<div id="tab-general">]]></search>
+			<add><![CDATA[<table class="form">
+            <tr>
+                <td><?php echo $entry_image; ?><br /><div class="image"><img src="<?php echo $thumb; ?>" alt="" id="thumb" /><br />
+                    <input type="hidden" name="image" value="<?php echo $image; ?>" id="image" />
+                    <a onclick="image_upload('image', 'thumb');"><?php echo $text_browse; ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a onclick="$('#thumb').attr('src', '<?php echo $no_image; ?>'); $('#image').attr('value', '');"><?php echo $text_clear; ?></a></div></td>
+
+                <td><?php echo $entry_price; ?>
+                    <div style="font-size: 25px; color: green; margin-top: 5px;">
+                    <?php echo $price_before; ?><input type="text" name="price" size="5" value="<?php echo $price; ?>" style="font-size: 25px; color: green;" /><?php echo $price_after; ?></td>
+                </div>
+            </tr>
+            </table>]]></add>
+		</operation>
+
+	</file>
+
+	<file name="admin/view/template/catalog/category_form.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[size="100"]]></search>
+			<add><![CDATA[style="font-size: 18px;" size="90"]]></add>
+		</operation>
+	</file>
+
+
+	<file name="admin/controller/catalog/product.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[$this->load->model('localisation/tax_class');]]></search>
+			<add><![CDATA[$this->load->model('localisation/currency');
+          $curr = $this->model_localisation_currency->getCurrencyByCode($this->config->get('config_currency'));
+          $this->data['price_before'] = $curr['symbol_left'];
+          $this->data['price_after'] = $curr['symbol_right'];
+
+
+function floatNumber($number)
+ {
+      if ((float)$number == 0) return 0;
+      $number_array = explode('.',(float)$number);
+      $left = $number_array[0];
+      if (count($number_array)>1) $right = $number_array[1]; else $right='';
+      return number_format($number,strlen($right),'.','');
+ }
+
+	  $this->data['price'] = floatNumber($this->data['price']);
+	
+	  // For old Opencart versions
+	if (!isset($this->data['text_browse'])) $this->data['text_browse'] = 'Browse';
+	if (!isset($this->data['text_clear'])) $this->data['text_clear'] = 'Clear';
+
+]]></add>
+		</operation>
+	</file>
+
+
+</modification>

@@ -1,0 +1,420 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Adds the ability to download languages and select predefined currencies.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/localisation/language_list.tpl">
+		<operation error="log">
+			<search position="replace"><![CDATA[<a onclick="location = '<?php echo $insert; ?>'" class="button">]]></search>
+			<add><![CDATA[<span id="ldown">
+          <a onclick="$('#ldown').hide(); $('#lselect').show(500);" class="button"><?php echo $language_download; ?></a>
+          </span>
+          <span id="lselect" style="display:none;">
+            <?php echo $language_select; ?>
+              <select id="llanguage" name="language">
+                  <option value="english" selected="1">English</option>
+                  <?php echo $llanguages; ?>
+              </select>
+              <a onclick="location = location+'&language='+document.getElementById('llanguage').value" class="button"><b><?php echo $language_go; ?></b></a>
+          </span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a onclick="location = '<?php echo $insert; ?>'" class="button">]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/localisation/language.php">
+		<operation error="log">
+			<search position="after"><![CDATA[private function getList() {]]></search>
+			<add><![CDATA[if (isset($this->request->get['language'])) {
+            if ($this->request->get['language']<>'english') { // Download and install language
+		umask(0002);
+                // ----- Download and extract ZIP
+                $zFile = $this->request->get['language'] . '.zip';
+                $zUrl = 'http://OpenShop.org.ua/languages/';
+                $zPath = '../';
+
+                $zOut = fopen($zPath . $zFile , 'wb');
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_FILE, $zOut);
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+                curl_setopt($curl, CURLOPT_FAILONERROR, 1);
+                curl_setopt($curl, CURLOPT_URL, $zUrl.$zFile);
+                curl_exec($curl);
+                fclose($zOut);
+
+                $zResult = curl_getinfo($curl);
+                $info=DIR_CATALOG.'language/'.$this->request->get['language'].'/info.php';
+
+                if($zResult['http_code'] == 200) {
+                    // Extract ZIP
+                    $zip = new ZipArchive;
+                    if ($zip->open($zPath . $zFile) === TRUE) {
+                        $zip->extractTo($zPath);
+                        $zip->close();
+                    }
+                }
+                @unlink($zPath . $zFile);
+                // ----- End of ZIP
+                $this->error['warning']='';
+                if (!file_exists($info)) $this->error['warning'] =$this->os['language_fail'];
+
+                if (!$this->error['warning']) {
+                    // ---- Register language
+                    $data=array();
+                    include($info);
+                    if (!isset($data['directory'])) $data['directory'] = $data['filename'];
+                    if (!isset($data['image'])) $data['image'] = $data['code'].'.png';
+                    if (!isset($data['sort_order'])) $data['sort_order'] = '';
+                    if (!isset($data['status'])) $data['status'] = '1';
+                    $this->model_localisation_language->addLanguage($data);
+                    $this->data['success']=$this->os['language_success'];
+                    // --- End Register language
+
+                }
+            } else {
+              // Install English language
+                $data=array();
+                $data['name'] = 'English';
+                $data['filename'] = 'english';
+                $data['code'] = 'en';
+                $data['locale'] = 'en_US.UTF-8,en_US,en-gb,english';
+                $data['directory'] = $data['filename'];
+                $data['image'] = 'gb.png';
+                $data['sort_order'] = '';
+                $data['status'] = '1';
+                $this->model_localisation_language->addLanguage($data);
+                $this->data['success']=$this->os['language_success'];
+            }
+        }]]></add>
+		</operation>
+		<operation error="log">
+			<search position="before"><![CDATA[$this->template = 'localisation/language_list.tpl';]]></search>
+			<add><![CDATA[$curl = curl_init('http://OpenShop.org.ua/languages/');
+        curl_setopt($curl, CURLOPT_TIMEOUT, 2);
+        curl_setopt($curl, CURLOPT_FAILONERROR, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $this->data['llanguages'] = curl_exec($curl);
+        if (!$this->data['llanguages'])
+            $this->data['llanguages']='
+<option value="arabic">Arabic</option>
+<option value="chinese" style="background:#DDDDDD;">Chinese</option>
+<option value="czech" style="background:#DDDDDD;">Czech</option>
+<option value="dutch" style="background:#DDDDDD;">Dutch</option>
+<option value="estonian" style="background:#DDDDDD;">Estonian</option>
+<option value="finnish" style="background:#DDDDDD;">Finnish</option>
+<option value="french" style="background:#DDDDDD;">French</option>
+<option value="german" style="background:#DDDDDD;">German</option>
+<option value="greek" style="background:#DDDDDD;">Greek</option>
+<option value="hungarian" style="background:#DDDDDD;">Hungarian</option>
+<option value="italian" style="background:#DDDDDD;">Italian</option>
+<option value="polish" style="background:#DDDDDD;">Polish</option>
+<option value="portuguese" style="background:#DDDDDD;">Portuguese</option>
+<option value="russian">Russian</option>
+<option value="slovenian" style="background:#DDDDDD;">Slovenian</option>
+<option value="spanish" style="background:#DDDDDD;">Spanish</option>
+<option value="turkish" style="background:#DDDDDD;">Turkish</option>
+<option value="ukrainian" >Ukrainian</option>
+<option value="vietnamese" style="background:#DDDDDD;">Vietnamese</option>';
+        ]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/controller/localisation/currency.php">
+		<operation error="log">
+			<search position="before"><![CDATA[$this->template = 'localisation/currency_form.tpl';]]></search>
+			<add><![CDATA[$curl = curl_init('http://OpenShop.org.ua/currencies_list/');
+        curl_setopt($curl, CURLOPT_TIMEOUT, 2);
+        curl_setopt($curl, CURLOPT_FAILONERROR, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $this->data['currencies'] = curl_exec($curl);
+        if (!$this->data['currencies']) $this->data['currencies']='<option value="AED/ د.إ">AED</option>
+<option value="AFN/ ؋">AFN</option>
+<option value="ALL/ L">ALL</option>
+<option value="AMD/ դր.">AMD</option>
+<option value="ANG/ ƒ">ANG</option>
+<option value="AOA/ Kz">AOA</option>
+<option value="ARS\$">ARS</option>
+<option value="AUD\$">AUD</option>
+<option value="AWG/ ƒ">AWG</option>
+<option value="BAM/ KM">BAM</option>
+<option value="BBD\$">BBD</option>
+<option value="BDT/ ৳">BDT</option>
+<option value="BGN/ лв">BGN</option>
+<option value="BHD/ .د.ب">BHD</option>
+<option value="BIF/ Fr">BIF</option>
+<option value="BMD\$">BMD</option>
+<option value="BND\$">BND</option>
+<option value="BOB/ Bs.">BOB</option>
+<option value="BRL/ R$">BRL</option>
+<option value="BSD\$">BSD</option>
+<option value="BTN/ Nu.">BTN</option>
+<option value="BWP/ P">BWP</option>
+<option value="BYR/ Br">BYR</option>
+<option value="BZD\$">BZD</option>
+<option value="CAD\$">CAD</option>
+<option value="CDF/ Fr">CDF</option>
+<option value="CHF/ Fr">CHF</option>
+<option value="CLP\$">CLP</option>
+<option value="CNY/ ¥">CNY</option>
+<option value="COP\$">COP</option>
+<option value="CRC/ ₡">CRC</option>
+<option value="CUC\$">CUC</option>
+<option value="CUP\$">CUP</option>
+<option value="CVE/ Esc">CVE</option>
+<option value="CZK/ Kč">CZK</option>
+<option value="DJF/ Fr">DJF</option>
+<option value="DKK/ kr">DKK</option>
+<option value="DOP\$">DOP</option>
+<option value="DZD/ د.ج">DZD</option>
+<option value="EGP\£">EGP</option>
+<option value="ERN/ Nfk">ERN</option>
+<option value="ETB/ Br">ETB</option>
+<option value="EUR\€">EUR</option>
+<option value="FJD\$">FJD</option>
+<option value="FKP\£">FKP</option>
+<option value="GBP\£">GBP</option>
+<option value="GEL/ ლ">GEL</option>
+<option value="GHS/ ₵">GHS</option>
+<option value="GIP\£">GIP</option>
+<option value="GMD/ D">GMD</option>
+<option value="GNF/ Fr">GNF</option>
+<option value="GTQ/ Q">GTQ</option>
+<option value="GYD\$">GYD</option>
+<option value="HKD\$">HKD</option>
+<option value="HNL/ L">HNL</option>
+<option value="HRK/ kn">HRK</option>
+<option value="HTG/ G">HTG</option>
+<option value="HUF/ Ft">HUF</option>
+<option value="IDR/ Rp">IDR</option>
+<option value="ILS/ ₪">ILS</option>
+<option value="IQD/ ع.د">IQD</option>
+<option value="IRR/ ﷼">IRR</option>
+<option value="ISK/ kr">ISK</option>
+<option value="JMD\$">JMD</option>
+<option value="JOD/ د.ا">JOD</option>
+<option value="JOD/ د.ا">JOD</option>
+<option value="JPY/ ¥">JPY</option>
+<option value="KES/ Sh">KES</option>
+<option value="KGS/ лв">KGS</option>
+<option value="KHR/ ៛">KHR</option>
+<option value="KMF/ Fr">KMF</option>
+<option value="KPW/ ₩">KPW</option>
+<option value="KRW/ ₩">KRW</option>
+<option value="KWD/ د.ك">KWD</option>
+<option value="KYD\$">KYD</option>
+<option value="KZT/ ₸">KZT</option>
+<option value="LAK/ ₭">LAK</option>
+<option value="LBP/ ل.ل">LBP</option>
+<option value="LKR/ Rs">LKR</option>
+<option value="LRD\$">LRD</option>
+<option value="LSL/ L">LSL</option>
+<option value="LTL/ Lt">LTL</option>
+<option value="LVL/ Ls">LVL</option>
+<option value="LYD/ ل.د">LYD</option>
+<option value="MDL/ L">MDL</option>
+<option value="MGA/ Ar">MGA</option>
+<option value="MKD/ ден">MKD</option>
+<option value="MMK/ K">MMK</option>
+<option value="MNT/ ₮">MNT</option>
+<option value="MOP/ P">MOP</option>
+<option value="MRO/ UM">MRO</option>
+<option value="MUR/ ₨">MUR</option>
+<option value="MVR/ .ރ">MVR</option>
+<option value="MWK/ MK">MWK</option>
+<option value="MXN\$">MXN</option>
+<option value="MYR/ RM">MYR</option>
+<option value="MZN/ MT">MZN</option>
+<option value="NAD\$">NAD</option>
+<option value="NGN/ ₦">NGN</option>
+<option value="NIO/ C$">NIO</option>
+<option value="NOK/ kr">NOK</option>
+<option value="NPR/ ₨">NPR</option>
+<option value="NZD\$">NZD</option>
+<option value="OMR/ ر.ع.">OMR</option>
+<option value="PAB/ B/ .">PAB</option>
+<option value="PEN/ S/ .">PEN</option>
+<option value="PGK/ K">PGK</option>
+<option value="PHP/ ₱">PHP</option>
+<option value="PKR/ ₨">PKR</option>
+<option value="PLN/ zł">PLN</option>
+<option value="PYG/ ₲">PYG</option>
+<option value="QAR/ ر.ق">QAR</option>
+<option value="RON/ L">RON</option>
+<option value="RSD/ din.">RSD</option>
+<option value="RUB/ руб.">RUB</option>
+<option value="RWF/ Fr">RWF</option>
+<option value="SAR/ ر.س">SAR</option>
+<option value="SBD\$">SBD</option>
+<option value="SCR/ ₨">SCR</option>
+<option value="SDG\£">SDG</option>
+<option value="SEK/ kr">SEK</option>
+<option value="SGD\$">SGD</option>
+<option value="SHP\£">SHP</option>
+<option value="SLL/ Le">SLL</option>
+<option value="SOS/ Sh">SOS</option>
+<option value="SRD\$">SRD</option>
+<option value="SSP\£">SSP</option>
+<option value="STD/ Db">STD</option>
+<option value="SVC/ ₡">SVC</option>
+<option value="SYP\£">SYP</option>
+<option value="SZL/ L">SZL</option>
+<option value="THB/ ฿">THB</option>
+<option value="TJS/ ЅМ">TJS</option>
+<option value="TMT/ m">TMT</option>
+<option value="TND/ د.ت">TND</option>
+<option value="TOP/ T$">TOP</option>
+<option value="TTD\$">TTD</option>
+<option value="TWD\$">TWD</option>
+<option value="TZS/ Sh">TZS</option>
+<option value="UAH/ грн">UAH</option>
+<option value="UGX/ Sh">UGX</option>
+<option value="USD\$" selected="1">USD</option>
+<option value="UYU\$">UYU</option>
+<option value="UZS/ лв">UZS</option>
+<option value="VEF/ Bs">VEF</option>
+<option value="VND/ ₫">VND</option>
+<option value="VUV/ Vt">VUV</option>
+<option value="WST/ T">WST</option>
+<option value="XAF/ Fr">XAF</option>
+<option value="XCD\$">XCD</option>
+<option value="XOF/ Fr">XOF</option>
+<option value="XPF/ Fr">XPF</option>
+<option value="YER/ ﷼">YER</option>
+<option value="ZAR/ R">ZAR</option>
+<option value="ZMK/ ZK">ZMK</option>
+';]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/view/template/localisation/currency_form.tpl">
+		<operation error="log">
+			<search position="after"><![CDATA[<table class="form">]]></search>
+			<add><![CDATA[<?php if (!$title and $currencies) { ?>
+          <tr>
+            <td><b><?php echo $predefined_currencies; ?></b></td>
+                <td>
+                    <select id="currency" name="currency" onchange="
+
+                    document.getElementsByName('title')[0].value=document.getElementById('currency').value.substring(0,3);
+                    document.getElementsByName('code')[0].value=document.getElementById('currency').value.substring(0,3);
+			document.getElementsByName('decimal_place')[0].value='';
+                    if (document.getElementById('currency').value[3]=='/') {
+                        document.getElementsByName('symbol_left')[0].value='';
+                        document.getElementsByName('symbol_right')[0].value=document.getElementById('currency').value.substring(4);
+                    } else {
+                        document.getElementsByName('symbol_right')[0].value='';
+                        document.getElementsByName('symbol_left')[0].value=document.getElementById('currency').value.substring(4);
+                    }
+
+                    ">
+                        <?php echo $currencies; ?>
+                    </select>
+                </td>
+          </tr>
+          <?php } ?>]]></add>
+		</operation>
+	</file>
+
+
+<!-- Currency update timeout fix -->
+	<file name="admin/model/localisation/currency.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);]]></search>
+			<add><![CDATA[curl_setopt($curl, CURLOPT_TIMEOUT, 15);]]></add>
+		</operation>
+	</file>
+
+
+<!-- Hide language tabs when only 1 language present -->
+	<file name="admin/view/template/*/*.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[id="languages]]></search>
+			<add><![CDATA[<?php if (count($languages) == 1) echo 'hidden="true" '; ?>id="languages]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[id="language-]]></search>
+			<add><![CDATA[<?php if (count($languages) == 1) echo 'hidden="true" '; ?>id="language-]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/view/template/*/*/*.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[id="languages]]></search>
+			<add><![CDATA[<?php if (count($languages) == 1) echo 'hidden="true" '; ?>id="languages]]></add>
+		</operation>
+	</file>
+
+
+<!-- Fallback to English if phrase is not localized -->
+	<file name="system/library/language.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[public function load($filename) {]]></search>
+			<add><![CDATA[
+//MXS
+        $_ = array();
+        global $vqmod;
+        $file = DIR_LANGUAGE . 'english/' . $filename . '.php';
+        if (file_exists($file)) require($vqmod->modCheck($file));
+        $file2 = DIR_LANGUAGE . $this->directory . '/' . $filename . '.php';
+	if ($file != $file2)
+        	if (file_exists($file2)) require($vqmod->modCheck($file2));
+	$this->data = array_merge($this->data, $_);
+        return $this->data;
+        //MXE
+]]></add>
+		</operation>
+	</file>
+
+<!-- Zero decimal places support -->
+	<file name="system/library/currency.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[$string .= number_format]]></search>
+			<add><![CDATA[
+if (!$decimal_place) {
+	$number_array = explode('.',(float)$number);
+        if (count($number_array)>1) $dec=strlen($number_array[1]); else $dec=0;
+	if ($dec==1) $dec=2;
+	$string .= number_format(round($value, $dec), $dec, $decimal_point, $thousand_point);
+} else
+
+]]></add>
+		</operation>
+	</file>
+
+<!-- Admin money display fix -->
+	<file name="admin/controller/catalog/product.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[$result['price']]]></search>
+			<add><![CDATA[$this->currency->format($result['price'])]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[$product_special['price']]]></search>
+			<add><![CDATA[$this->currency->format($product_special['price'])]]></add>
+		</operation>
+
+	</file>
+	
+<!-- Right reading direction languages -->
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[/stylesheet.css]]></search>
+			<add><![CDATA[/stylesheet<?php if ($direction == 'rtl') echo '-a'; ?>.css]]></add>
+		</operation>
+
+	</file>
+
+	<file name="catalog/view/theme/default/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[/stylesheet.css]]></search>
+			<add><![CDATA[/stylesheet<?php if ($direction == 'rtl') echo '-a'; ?>.css]]></add>
+		</operation>
+
+	</file>
+
+
+</modification>

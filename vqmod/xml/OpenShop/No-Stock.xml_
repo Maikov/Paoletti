@@ -1,0 +1,175 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides product stock fuctionality: quantities, remains and "Out of stock" statuses.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+
+	<file name="admin/view/template/setting/setting.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_country; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_country; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_zone; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_zone; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<h2><?php echo $text_stock; ?></h2>]]></search>
+			<add><![CDATA[<div style="display:none;">]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<h2><?php echo $text_affiliate; ?></h2>]]></search>
+			<add><![CDATA[</div>]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_sku; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_sku; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_upc; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_upc; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+
+        <operation error="skip">
+            <search position="before" offset="1"><![CDATA[<td><?php echo $entry_ean; ?></td>]]></search>
+            <add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="before"><![CDATA[<td><?php echo $entry_ean; ?></td>]]></search>
+            <add><![CDATA[-->]]></add>
+        </operation>
+
+        <operation error="skip">
+            <search position="before" offset="1"><![CDATA[<td><?php echo $entry_jan; ?></td>]]></search>
+            <add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="before"><![CDATA[<td><?php echo $entry_jan; ?></td>]]></search>
+            <add><![CDATA[-->]]></add>
+        </operation>
+
+        <operation error="skip">
+            <search position="before" offset="1"><![CDATA[<td><?php echo $entry_isbn; ?></td>]]></search>
+            <add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="before"><![CDATA[<td><?php echo $entry_isbn; ?></td>]]></search>
+            <add><![CDATA[-->]]></add>
+        </operation>
+
+        <operation error="skip">
+            <search position="before" offset="1"><![CDATA[<td><?php echo $entry_mpn; ?></td>]]></search>
+            <add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="before"><![CDATA[<td><?php echo $entry_mpn; ?></td>]]></search>
+            <add><![CDATA[-->]]></add>
+        </operation>
+
+        <operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_location; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_location; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+
+        <operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_quantity; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td><?php echo $entry_quantity; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+
+        <operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_minimum; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_minimum; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+
+        <operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_subtract; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_subtract; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+
+        <operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_stock_status; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_stock_status; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $stock_status; ?>"><?php echo $text_stock_status; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/product/product.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<span><?php echo $text_stock; ?></span> <?php echo $stock; ?></div>]]></search>
+			<add><![CDATA[</div>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<div><?php echo $text_qty; ?>]]></search>
+			<add><![CDATA[<div>
+          <input style="display:none;" type="text" name="quantity" size="2" value="<?php echo $minimum; ?>" />]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_list.tpl">
+		<operation error="skip">
+			<search position="replace" offset="4"><![CDATA[<td class="right"><?php if ($sort == 'p.quantity') { ?>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td align="right"><input type="text" name="filter_quantity" value="<?php echo $filter_quantity; ?>" style="text-align: right;" /></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="6"><![CDATA[<td class="right"><?php if ($product['quantity'] <= 0) { ?>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/catalog/product.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[$this->data['subtract'] = 1;]]></search>
+			<add><![CDATA[$this->data['subtract'] = 0; // MX]]></add>
+		</operation>
+	</file>
+</modification>

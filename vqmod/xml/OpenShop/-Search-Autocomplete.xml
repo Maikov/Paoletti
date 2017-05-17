@@ -1,0 +1,14 @@
+<!-- Created using vQmod XML Generator by UKSB - http://www.opencart-extensions.co.uk //-->
+<modification>
+	<id><![CDATA[Search autocomplete with product info and images.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[sv2109 (sv2109@gmail.com)]]></author>
+	<file name="catalog/view/theme/*/template/common/header.tpl">
+		<operation error="log">
+			<search position="after"><![CDATA[common.js]]></search>
+			<add><![CDATA[<script type="text/javascript" src="catalog/view/javascript/search_suggestion.js"></script>
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/search_suggestion<?php if ($direction == 'rtl') echo '-a'; ?>.css" />]]></add>
+		</operation>
+	</file>
+</modification>

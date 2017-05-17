@@ -1,0 +1,18 @@
+-----------------------------------------
+OPENSHOP
+-----------------------------------------
+Version: Release [3th of November 2012]
+Project site: http://OpenShop.org.ua
+
+Mission: Make Opencart the best shop engine for beginners. 
+Let it be usable without downloading and installing any additions.
+
+Main features:
++ full admin area redesign & simplify
++ CMS functions
++ unused functionality hiding (like Shipping, VAT, Cart, Accounts & much more)
++ control any theme colors, backgrounds and animations
++ proper Digital Downloads with free product downloads
++ vQmod with manual mode to achieve top perfomance
++ ability to turn off OpenShop temporarily and come back to clean Opencart
++ multilanguage installer for new shops

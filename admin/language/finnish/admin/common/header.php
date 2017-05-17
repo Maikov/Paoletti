@@ -1,0 +1,62 @@
+<?php
+// Heading
+$_['heading_title']          = 'Yll&auml;pito';
+
+// Text
+$_['text_backup']            = 'Varmistus/Palautus';
+$_['text_catalog']           = 'Tuoteluettelo';
+$_['text_category']          = 'Tuotealueet';
+$_['text_confirm']			 = 'Oletko varma?';
+$_['text_country']           = 'Maat'; 
+$_['text_coupon']            = 'Alennnuskoodit';
+$_['text_currency']          = 'Valuutat';
+$_['text_customer']          = 'Asiakkaat';
+$_['text_customer_group']    = 'Asiakasryhm&auml;t';
+$_['text_dashboard']         = 'Etusivu';
+$_['text_download']          = 'Lataukset';
+$_['text_error_log']         = 'Virheloki';
+$_['text_extension']         = 'Laajennukset';
+$_['text_feed']              = 'Tuotesy&ouml;tteet';
+$_['text_front']             = 'Kaupan etusivu';
+$_['text_geo_zone']          = 'Maantiet. alueet';
+$_['text_help']              = 'Tuki';
+$_['text_information']       = 'Ehdot ja infot';
+$_['text_language']          = 'Kielet';
+$_['text_localisation']      = 'Lokalisointi';
+$_['text_logged']            = 'Kirjautunut, <span>%s</span>';
+$_['text_logout']            = 'Kirjaudu ulos';
+$_['text_contact']           = 'Tiedote/viesti';
+$_['text_manufacturer']      = 'Valmistajat';
+$_['text_module']            = 'Moduulit';
+$_['text_order']             = 'Tilaukset';
+$_['text_order_status']      = 'Tilauksen tilat';
+$_['text_opencart']          = 'Ohjelmiston kotisivu';
+$_['text_payment']           = 'Maksutavat';
+$_['text_product']           = 'Tuotteet';
+$_['text_reports']           = 'Raportit';
+$_['text_report_purchased']  = 'Ostetuimmat';
+$_['text_report_sale']       = 'Myynti';
+$_['text_report_viewed']     = 'Seuratuimmat';
+$_['text_review']            = 'Arvostelut';
+$_['text_sale']              = 'Myynti';
+$_['text_shipping']          = 'Toimitustavat';
+$_['text_setting']           = 'Asetukset';
+$_['text_stock_status']      = 'Saatavuudet';
+$_['text_support']           = 'Tukifoorumi';
+$_['text_system']            = 'Yll&auml;pito';
+$_['text_tax_class']         = 'Veroluokat';
+$_['text_total']             = 'Laskukaavat';
+$_['text_user']              = 'K&auml;ytt&auml;j&auml;t';
+$_['text_documentation']     = 'Dokumentaatio';
+$_['text_users']             = 'K&auml;ytt&auml;j&auml;hallinta';
+$_['text_user_group']        = 'K&auml;ytt&auml;j&auml;ryhm&auml;t';
+$_['text_weight_class']      = 'Painoyksik&ouml;t';
+$_['text_length_class']      = 'Pituusyksik&#246;t';
+$_['text_zone']              = 'Alueet';
+$_['text_store']             = 'Esikatselu';
+$_['text_measurement_class'] = 'Pituusyksik&ouml;t';
+$_['text_sponsors']          = 'Kumppanit';
+$_['text_export']            = 'Excel vienti/tuonti';
+$_['text_news'] 	     	 = 'Uutispalsta';
+$_['text_poll'] 	     	 = 'Kysely';
+?>

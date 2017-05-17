@@ -1,0 +1,104 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides multiply stores functionality.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/controller/common/header.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[link('setting/store']]></search>
+			<add><![CDATA[link('setting/setting']]></add>
+		</operation>
+	</file>
+
+	<file name="/admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+
+	<file name="/admin/view/template/catalog/category_form.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+
+	<file name="/admin/view/template/catalog/information_form.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+
+	<file name="/admin/view/template/catalog/manufacturer_form.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+
+	<file name="/admin/view/template/sale/contact.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/view/template/module/news/form.*">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $entry_store; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+
+	<file name="/admin/view/template/sale/order_info.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $text_store_name; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $text_store_name; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><?php echo $text_store_url; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><?php echo $text_store_url; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+
+
+</modification>

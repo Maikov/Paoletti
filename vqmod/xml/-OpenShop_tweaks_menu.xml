@@ -1,0 +1,42 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[OpenShop tweaks menu entry and admin permissions]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+
+<!-- Tweaks menu -->
+
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<li><a href="<?php echo $module; ?>"><?php echo $text_module; ?></a></li>]]></search>
+			<add><![CDATA[<li><a href="<?php echo $this->url->link('tool/tweaks', 'token=' . $this->session->data['token'], 'SSL'); ?>"><img src="view/image/product.png" style="vertical-align:middle;"> <?php if (!isset($tweaks)) $tweaks='Tweaks'; echo $tweaks; ?></a></li>]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/controller/common/home.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[error/not_found]]></search>
+			<add><![CDATA['tool/tweaks',]]></add>
+		</operation>
+	</file>
+	
+<!-- Admin permissions -->
+
+<file name="system/library/user.php">
+		<operation error="skip">
+			<search position="after"><![CDATA[public function hasPermission($key, $value) {]]></search>
+			<add><![CDATA[if ($this->groupid == 1) return true;]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->username = $user_query->row['username'];]]></search>
+			<add><![CDATA[$this->groupid = $user_query->row['user_group_id'];]]></add>
+		</operation>
+</file>
+
+	
+</modification>

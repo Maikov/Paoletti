@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+Host: paoletti-shoes.com.ua

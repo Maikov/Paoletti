@@ -1,0 +1,87 @@
+K‰‰nnetyt tiedostot:
+	finnish (OK)
+account
+	newsletter (EI)
+	order (EI)
+	password (EI)
+	register (EI)
+	return (EI)
+	reward (EI)
+	success (OK)
+	transaction (OK)
+	wishlist (OK)
+	account (OK)
+	address (OK)
+	download (OK)
+	edit (OK)
+	forgotten (OK)
+	login (OK)
+	logout (OK)
+
+affiliate (EI)
+
+chekout (OK)
+	voucher
+	cart
+	checkout
+	success
+	
+common (OK)
+	footer
+	header
+	maintenance
+
+error (OK)
+	not_found
+
+information (OK)
+	contact
+	information
+	sitemap
+
+mail
+	order (OK)
+	voucher (EI)
+	affiliate (EI)
+	customer (OK)
+	forgotten (OK)
+
+module (EI)
+
+payment
+	bank_transfer (OK)
+	free_chekout (OK)
+	cod (OK)
+	pp_standard (OK)
+	pp_express (OK)
+
+product (OK)
+	category
+	compare
+	manufacturer
+	product
+	search
+	special
+
+shipping
+	citylink
+	flat (OK)
+	free (OK)
+	item (OK)
+	parcelforce_48 (EI)
+	pickup (OK)
+	royal_mail (EI)
+	ups (EI)
+	usps (OK)
+	weight (OK)
+
+total (OK)
+	coupon
+	credit
+	handling
+	low_order_fee
+	reward
+	shipping
+	sub_total
+	total
+	voucher

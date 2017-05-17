@@ -1,0 +1,49 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Turns off customers accounts functionality. The only way to buy is guest checkout.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="catalog/view/theme/*/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace" offset="6"><![CDATA[<div id="welcome">]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<a href="<?php echo $account; ?>"><?php echo $text_account; ?></a>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/common/footer.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<h3><?php echo $text_account; ?></h3>]]></search>
+			<add><![CDATA[<div style="display:none;"><!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<h3><?php echo $text_account; ?></h3>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/checkout/checkout.tpl">
+		<operation error="skip">
+			<search position="replace" offset="5"><![CDATA[url: 'index.php?route=checkout/login',]]></search>
+			<add><![CDATA[url: 'index.php?route=checkout/guest',
+		dataType: 'html',
+		success: function(html) {
+			$('#payment-address .checkout-content').html(html);
+				
+			$('#payment-address .checkout-content').slideDown('slow');]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="14"><![CDATA[<div id="checkout">]]></search>
+			<add><![CDATA[<div id="payment-address">
+      <div class="checkout-heading"><span><?php echo $text_checkout_payment_address; ?></span></div>
+      <div class="checkout-content"></div>
+</div>]]></add>
+		</operation>
+	</file>
+</modification>

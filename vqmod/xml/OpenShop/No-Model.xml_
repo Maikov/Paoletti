@@ -1,0 +1,77 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides "Model" product field and auto-fills it with product name.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[value="<?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['name'] : ''; ?>"]]></search>
+			<add><![CDATA[value="<?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['name'] : ''; ?>" onchange="document.getElementById('model').value=this.value;"]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<td><span class="required">*</span> <?php echo $entry_model; ?></td>]]></search>
+			<add><![CDATA[<tr style="display:none;"><!-- MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td><span class="required">*</span> <?php echo $entry_model; ?></td>]]></search>
+			<add><![CDATA[-->]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<input type="text" name="model" value="<?php echo $model; ?>" />]]></search>
+			<add><![CDATA[<input id="model" type="text" name="model" value="<?php echo $model; ?>" />]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/product/product.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<span><?php echo $text_model; ?></span> <?php echo $model; ?><br />]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/checkout/cart.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="model"><?php echo $column_model; ?></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="model"><?php echo $product['model']; ?></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="model"></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/checkout/confirm.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="model"><?php echo $column_model; ?></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="model"><?php echo $product['model']; ?></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="model"></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_list.tpl">
+		<operation error="skip">
+			<search position="replace" offset="4"><![CDATA[<td class="left"><?php if ($sort == 'p.model') { ?>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td><input type="text" name="filter_model" value="<?php echo $filter_model; ?>" /></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="left"><?php echo $product['model']; ?></td>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+</modification>

@@ -1,0 +1,29 @@
+<?php
+$_['text_wish'] = 'В заметки';
+$_['text_compare'] = 'В сравнения';
+$_['text_sale'] = 'Распродажа';
+$_['text_save'] = 'Экономия';
+$_['text_new_prod'] = 'Новинка';
+$_['text_skype'] = 'Есть вопрос? Свяжитесь с нами по скайпу сейчас!';
+$_['text_header_support'] = 'Клиентская поддержка';
+$_['text_header_skype'] = 'или свяжитесь с нами:';
+$_['text_purchased']  = 'purchased'; 
+$_['text_left']  = 'left';
+$_['text_limited'] = 'Окончание акции через:';
+$_['text_toggle'] = 'Show/Hide Pre-Footer';
+$_['text_question'] = 'Есть вопрос?';
+$_['text_facebook'] = 'Присоединяйтесь к нам на facebook';
+$_['text_twitter'] = 'Twitter feed';
+$_['text_twitter_follow'] = 'Follow us on <span>Twitter</span>!';
+$_['text_shop_by_price'] = 'Отбор по цене:';
+$_['text_payment'] = 'Способы оплаты';
+$_['text_hours'] = 'Часы работы:';
+$_['text_map'] = 'Найдите нас на карте';
+$_['text_news'] = 'Новости';
+$_['text_brands'] = 'Бренды';
+$_['text_skype_click']   = 'Нажмите для чата или звонка по скайпу';
+$_['custom_captcha_text']		= 'Enter the code in the box below:';
+$_['custom_captcha_error']		= 'Verification code does not match the image!';
+$_['text_general_info']		= 'Главная информация';
+$_['text_blog']		= 'Блог';
+?>

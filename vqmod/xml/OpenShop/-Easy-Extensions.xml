@@ -1,0 +1,169 @@
+<!-- Created using vQmod XML Generator by UKSB - http://www.opencart-extensions.co.uk //-->
+<modification>
+	<id><![CDATA[Hide install-uninstall extensions paradigm]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/extension/*.tpl">
+		<operation>
+			<search position="replace" offset="1"><![CDATA[<?php foreach ($extensions as $extension) { ?>]]></search>
+			<add><![CDATA[<?php foreach ($extensions as $extension) { ?>
+          <tr onclick="location='<?php echo $extension['action'][0]['href']; ?>'" style="cursor: pointer;">]]></add>
+		</operation>
+		<operation>
+			<search position="replace"  offset="2"><![CDATA[<td class="right"><?php foreach ($extension['action'] as $action) { ?>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+        <operation>
+            <search position="replace"><![CDATA[<td class="right"><?php echo $column_action; ?></td>]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+    </file>
+	<file name="admin/controller/extension/*.php">
+		<operation>
+			<search position="replace"><![CDATA[if (!in_array($extension, $extensions)) {]]></search>
+			<add><![CDATA[if (false) {]]></add>
+		</operation>
+        <operation error="log">
+            <search position="after"><![CDATA[$this->data['extensions'] = array();]]></search>
+            <add><![CDATA[$this->data['disabled'] = array();]]></add>
+        </operation>
+        <operation error="log">
+            <search position="replace"><![CDATA[$this->data['extensions'][] = array(]]></search>
+            <add><![CDATA[if ($this->config->get($extension . '_status')) $to='extensions'; else $to='disabled';
+$this->data[$to][] = array(]]></add>
+        </operation>
+        <operation error="log">
+            <search position="replace"><![CDATA['text' => $this->language->get('text_edit'),]]></search>
+            <add><![CDATA['text' => '<b>'.$this->language->get('text_edit').'</b>',]]></add>
+        </operation>
+    </file>
+    <file name="admin/controller/extension/module.php">
+        <operation>
+            <search position="replace"><![CDATA[if ($this->config->get($extension . '_status'))]]></search>
+            <add><![CDATA[if ($this->config->get($extension . '_module'))]]></add>
+        </operation>
+    </file>
+	<file name="system/engine/action.php">
+		<operation>
+			<search position="after"><![CDATA[public function __construct($route, $args = array()) {]]></search>
+			<add><![CDATA[$left=substr($route,0,strpos($route,'/'));
+$right=substr($route,strpos($route,'/')+1);
+global $request;
+if ($request->server['REQUEST_METHOD'] == 'POST')
+if ( ($left=='feed')   or
+     ($left=='total') or
+     ($left=='module') or
+     ($left=='payment') or
+     ($left=='shipping') )
+if (file_exists(DIR_APPLICATION . 'controller/'.$route.'.php')) {
+global $db;
+$query = $db->query("SELECT * FROM " . DB_PREFIX . "extension WHERE `type` = '" . $left . "' AND `code` = '" . $right . "'");
+if (!$query->rows)
+$query = $db->query("INSERT INTO " . DB_PREFIX . "extension SET `type` = '" . $left . "', `code` = '" . $right . "'");
+
+}
+ ]]></add>
+		</operation>
+	</file>
+
+    <file name="admin/view/template/extension/module.tpl">
+        <operation error="log">
+            <search position="replace"><![CDATA[<td class="left"><?php echo $extension['name']; ?></td>]]></search>
+            <add><![CDATA[<td class="left"><b><?php echo $extension['name']; ?></b></td>]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after" offset="2"><![CDATA[<td class="center" colspan="8"><?php echo $text_no_results; ?></td>]]></search>
+            <add><![CDATA[<!--MXS-->
+          <?php if ($disabled) { ?>
+          <?php foreach ($disabled as $extension) { ?>
+          <tr onclick="location='<?php echo $extension['action'][0]['href']; ?>'" style="cursor: pointer;">
+              <td class="left"><font color="Grey"><?php echo $extension['name']; ?></font></td>
+          </tr>
+          <?php } ?>
+          <?php } ?>
+          <!--MXE-->]]></add>
+        </operation>
+    </file>
+    <file name="admin/view/template/extension/feed.tpl">
+        <operation error="log">
+            <search position="replace"><![CDATA[<td class="left"><?php echo $extension['name']; ?></td>]]></search>
+            <add><![CDATA[<td class="left"><b><?php echo $extension['name']; ?></b></td>]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after" offset="2"><![CDATA[<td class="center" colspan="8"><?php echo $text_no_results; ?></td>]]></search>
+            <add><![CDATA[<!--MXS-->
+          <?php if ($disabled) { ?>
+          <?php foreach ($disabled as $extension) { ?>
+          <tr onclick="location='<?php echo $extension['action'][0]['href']; ?>'" style="cursor: pointer;">
+              <td class="left"><font color="Grey"><?php echo $extension['name']; ?></font></td>
+              <td class="left"><?php echo $extension['status'] ?></td>
+          </tr>
+          <?php } ?>
+          <?php } ?>
+          <!--MXE-->]]></add>
+        </operation>
+    </file>
+    <file name="admin/view/template/extension/payment.tpl">
+        <operation error="log">
+            <search position="replace"><![CDATA[<td class="left"><?php echo $extension['name']; ?></td>]]></search>
+            <add><![CDATA[<td class="left"><b><?php echo $extension['name']; ?></b></td>]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after" offset="2"><![CDATA[<td class="center" colspan="6"><?php echo $text_no_results; ?></td>]]></search>
+            <add><![CDATA[<!--MXS-->
+          <?php if ($disabled) { ?>
+          <?php foreach ($disabled as $extension) { ?>
+          <tr onclick="location='<?php echo $extension['action'][0]['href']; ?>'" style="cursor: pointer;">
+              <td class="left"><font color="Grey"><?php echo $extension['name']; ?></font></td>
+              <td class="center"><?php echo $extension['link'] ?></td>
+            <td class="left"><?php echo $extension['status'] ?></td>
+            <td class="right"><?php echo $extension['sort_order']; ?></td>
+          </tr>
+          <?php } ?>
+          <?php } ?>
+          <!--MXE-->]]></add>
+        </operation>
+    </file>
+    <file name="admin/view/template/extension/shipping.tpl">
+        <operation error="log">
+            <search position="replace"><![CDATA[<td class="left"><?php echo $extension['name']; ?></td>]]></search>
+            <add><![CDATA[<td class="left"><b><?php echo $extension['name']; ?></b></td>]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after" offset="2"><![CDATA[<td class="center" colspan="8"><?php echo $text_no_results; ?></td>]]></search>
+            <add><![CDATA[<!--MXS-->
+          <?php if ($disabled) { ?>
+          <?php foreach ($disabled as $extension) { ?>
+          <tr onclick="location='<?php echo $extension['action'][0]['href']; ?>'" style="cursor: pointer;">
+              <td class="left"><font color="Grey"><?php echo $extension['name']; ?></font></td>
+              <td class="left"><?php echo $extension['status'] ?></td>
+            <td class="right"><?php echo $extension['sort_order']; ?></td>
+          </tr>
+          <?php } ?>
+          <?php } ?>
+          <!--MXE-->]]></add>
+        </operation>
+    </file>
+    <file name="admin/view/template/extension/total.tpl">
+        <operation error="log">
+            <search position="replace"><![CDATA[<td class="left"><?php echo $extension['name']; ?></td>]]></search>
+            <add><![CDATA[<td class="left"><b><?php echo $extension['name']; ?></b></td>]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after" offset="2"><![CDATA[<td class="center" colspan="8"><?php echo $text_no_results; ?></td>]]></search>
+            <add><![CDATA[<!--MXS-->
+          <?php if ($disabled) { ?>
+          <?php foreach ($disabled as $extension) { ?>
+          <tr onclick="location='<?php echo $extension['action'][0]['href']; ?>'" style="cursor: pointer;">
+              <td class="left"><font color="Grey"><?php echo $extension['name']; ?></font></td>
+              <td class="left"><?php echo $extension['status'] ?></td>
+            <td class="right"><?php echo $extension['sort_order']; ?></td>
+          </tr>
+          <?php } ?>
+          <?php } ?>
+          <!--MXE-->]]></add>
+        </operation>
+    </file>
+
+</modification>

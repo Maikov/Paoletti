@@ -1,0 +1,41 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Transforms 'Welcome' module to 'Text']]></id>
+	<version><![CDATA[1.2]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="catalog/view/theme/*/template/module/welcome.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<div class="welcome"><?php echo $heading_title; ?></div>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="admin/language/*/module/welcome.php">
+        <operation error="skip">
+            <search position="replace" error="skip"><![CDATA[$_['heading_title']]]></search>
+            <add><![CDATA[global $os; $_['heading_title']=$os['text_modules'];//]]></add>
+        </operation>
+		<operation error="skip">
+			<search position="replace" error="log"><![CDATA[Welcome]]></search>
+			<add><![CDATA[Text]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" error="log"><![CDATA[welcome]]></search>
+			<add><![CDATA[text]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/module/welcome.tpl">
+		<operation error="skip">
+			<search position="replace" offset="1" error="log"><![CDATA[html += '          <td><?php echo $entry_description; ?></td>';]]></search>
+			<add><![CDATA[	html += '          <td><?php echo $entry_description; ?><textarea name="welcome_module[' + module_row + '][description][<?php echo $language['language_id']; ?>]" id="description-' + module_row + '-<?php echo $language['language_id']; ?>"></textarea></td>'; // MX]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="1"><![CDATA[<td><?php echo $entry_description; ?></td>]]></search>
+			<add><![CDATA[<td><?php echo $entry_description; ?><textarea name="welcome_module[<?php echo $module_row; ?>][description][<?php echo $language['language_id']; ?>]" id="description-<?php echo $module_row; ?>-<?php echo $language['language_id']; ?>"><?php echo isset($module['description'][$language['language_id']]) ? $module['description'][$language['language_id']] : ''; ?></textarea></td><!--MX-->]]></add>
+		</operation>
+	</file>
+</modification>

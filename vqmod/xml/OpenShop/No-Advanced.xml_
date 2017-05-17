@@ -1,0 +1,86 @@
+<!-- *********************************************************************************** -->
+<!-- *** Part of OpenShop project: http://OpenShop.org.ua (c) MaxD                   *** -->
+<!-- *********************************************************************************** -->
+<!-- Redistribution in any form without written permission is prohibited.                -->
+
+<modification>
+	<id><![CDATA[Hides advanced product features: Options, Discounts, Specials, Rewards, Vouchers and custom design.]]></id>
+	<version><![CDATA[1.0]]></version>
+	<vqmver><![CDATA[]]></vqmver>
+	<author><![CDATA[MaxD http://OpenShop.org.ua]]></author>
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<a href="#tab-option"><?php echo $tab_option; ?></a>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<div id="tab-option">]]></search>
+			<add><![CDATA[<div id="tab-option" style="display:none;">]]></add>
+		</operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<a href="#tab-discount"><?php echo $tab_discount; ?></a>]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div id="tab-discount">]]></search>
+            <add><![CDATA[<div id="tab-discount" style="display:none;">]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<a href="#tab-special"><?php echo $tab_special; ?></a>]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div id="tab-special">]]></search>
+            <add><![CDATA[<div id="tab-special" style="display:none;">]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<a href="#tab-reward"><?php echo $tab_reward; ?></a>]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div id="tab-reward">]]></search>
+            <add><![CDATA[<div id="tab-reward" style="display:none;">]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<a href="#tab-design"><?php echo $tab_design; ?></a>]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+        <operation error="skip">
+            <search position="replace"><![CDATA[<div id="tab-design">]]></search>
+            <add><![CDATA[<div id="tab-design" style="display:none;">]]></add>
+        </operation>
+    </file>
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="skip">
+			<search position="replace" offset="6" index="1"><![CDATA[<li><a class="parent"><?php echo $text_customer; ?></a>]]></search>
+			<add><![CDATA[<li><a href="<?php echo $customer; ?>"><?php echo $text_customer; ?></a></li>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="6"><![CDATA[<li><a href="<?php echo $coupon; ?>"><?php echo $text_coupon; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $report_sale_coupon; ?>"><?php echo $text_report_sale_coupon; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $option; ?>"><?php echo $text_option; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $report_customer_credit; ?>"><?php echo $text_report_customer_credit; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/common/footer.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $voucher; ?>"><?php echo $text_voucher; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+
+	</file>
+</modification>
